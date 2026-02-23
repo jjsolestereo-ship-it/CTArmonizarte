@@ -148,7 +148,7 @@ const Team: React.FC = () => (
           name="Dr. Menthor Sánchez"
           role="Psicólogo Clínico & Autor"
           description="Especialista en psicodrama y terapia humanista. Con más de dos décadas de trayectoria, ha revolucionado el tratamiento de adicciones y duelos complejos."
-          initialImage="/Mentor.jpg"
+          initialImage="/Menthor.jpg"
           stats={[{ icon: BookOpen, label: "Autor Científico" }, { icon: Users, label: "Líder de Grupo" }]}
           gradientClass="from-brand-200 to-accent-200"
         />
