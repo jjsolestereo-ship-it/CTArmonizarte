@@ -1,4 +1,5 @@
 import React from "react";
+import Suscripciones from './src/components/Suscripciones';
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
