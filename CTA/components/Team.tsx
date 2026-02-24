@@ -139,7 +139,7 @@ const Team: React.FC = () => (
           name="Dra. Gladys Montero"
           role="Psicóloga Forense & Directora"
           description="Líder en reestructuración emocional con especialidad en peritaje. Su metodología fusiona la psicología clínica avanzada con un acompañamiento humano excepcional."
-          initialImage="/Gladys.jpg"
+          initialImage="/gladys.jpg"
           stats={[{ icon: Globe, label: "Experta Judicial" }, { icon: HeartHandshake, label: "Terapeuta Senior" }]}
           gradientClass="from-fuchsia-100 to-brand-300"
         />
@@ -148,7 +148,7 @@ const Team: React.FC = () => (
           name="Dr. Menthor Sánchez"
           role="Psicólogo Clínico & Autor"
           description="Especialista en psicodrama y terapia humanista. Con más de dos décadas de trayectoria, ha revolucionado el tratamiento de adicciones y duelos complejos."
-          initialImage="/Menthor.jpg"
+          initialImage="/menthor.jpg"
           stats={[{ icon: BookOpen, label: "Autor Científico" }, { icon: Users, label: "Líder de Grupo" }]}
           gradientClass="from-brand-200 to-accent-200"
         />
