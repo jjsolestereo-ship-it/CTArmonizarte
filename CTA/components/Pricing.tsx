@@ -21,7 +21,7 @@ const plans: PricingPlan[] = [
     price: '$20',
     period: '/mes',
     recommended: true,
-    features: ['1 sesion individual'l
+    features: ['1 sesion individual',
       '1 programa de autoayuda por mes',
       '1 sesión grupal moderada por mes',
       'Material descargable técnico',
@@ -34,7 +34,7 @@ const plans: PricingPlan[] = [
     price: '$ consultar',
     period: 'Permanente',
     features: [
-      'Psicoterapia individual, pareja y familiar,
+      'Psicoterapia individual, pareja y familiar',
       'Orientacion Vocacional',
       'Formacion en Psicodrama, Psicopatologia, Peritaje psicosocial',
       'Intervencion en crisis',
