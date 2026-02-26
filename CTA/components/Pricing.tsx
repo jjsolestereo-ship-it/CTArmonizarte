@@ -30,18 +30,18 @@ const plans: PricingPlan[] = [
     cta: 'Empezar Mensual'
   },
   {
-    name: 'Programas Permanentes',
-    price: '$ consultar',
+    name: 'Suscripcion Premium',
+    price: '$ 59',
     period: 'Permanente',
     features: [
-      'Psicoterapia individual, pareja y familiar',
-      'Orientacion Vocacional',
-      'Formacion en Psicodrama, Psicopatologia, Peritaje psicosocial',
-      'Intervencion en crisis',
-      'Diagnóstico de personalidad',
-      'Consultorias en Salud Mental para empresas'
+      'Acceso a todos los programas de autoayuda',
+      'Diagnostico de personalidad',
+      '3 sesiones individuales',
+      '3 sesiones grupales',
+      'Evaluacion y seguimiento',
+      'Mensajeria profesional'
     ],
-    cta: 'Programas Permanentes'
+    cta: 'Suscribirse Premium'
   }
 ];
 

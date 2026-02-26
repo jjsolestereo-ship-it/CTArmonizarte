@@ -1,5 +1,5 @@
 import React from "react";
-import Suscripciones from './src/components/Suscripciones';
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -11,33 +11,23 @@ import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
 import WhatsAppButton from "./components/WhatsAppButton";
-import CrisisFloatingAction from "./components/CrisisFloatingAction";
 
-const App: React.FC = () => {
+function App() {
   return (
-    <div className="min-h-screen font-sans text-stone-800 bg-stone-50 selection:bg-brand-200 selection:text-brand-900">
+    <div className="min-h-screen bg-white">
       <Navbar />
-      
-      <main>
-        <Hero />
-        <Services />
-        <Programs />
-        <Team />
-        <Pricing />
-        <Blog />
-        <Newsletter />
-      </main>
-
+      <Hero />
+      <Services />
+      <Programs />
+      <Team />
+      <Pricing />
+      <Blog />
+      <Newsletter />
       <Footer />
-      
-      {/* Floating Action Elements */}
-      <div className="z-50">
-        <Chatbot />
-        <WhatsAppButton />
-        <CrisisFloatingAction />
-      </div>
+      <Chatbot />
+      <WhatsAppButton />
     </div>
   );
-};
+}
 
 export default App;
