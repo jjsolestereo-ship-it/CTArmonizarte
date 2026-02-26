@@ -12,16 +12,16 @@ const plans: PricingPlan[] = [
       'Acceso al blog de bienestar',
       'Foro de comunidad abierta',
       'Boletín semanal de consejos',
-      'Recursos básicos PDF'
+      'Entrevista de orientacion'
     ],
     cta: 'Unirme Gratis'
   },
   {
     name: 'Membresía Mensual',
-    price: '$10',
+    price: '$20',
     period: '/mes',
     recommended: true,
-    features: [
+    features: ['1 sesion individual'l
       '1 programa de autoayuda por mes',
       '1 sesión grupal moderada por mes',
       'Material descargable técnico',
@@ -30,18 +30,18 @@ const plans: PricingPlan[] = [
     cta: 'Empezar Mensual'
   },
   {
-    name: 'Plan Anual Premium',
-    price: '$79.90',
-    period: '/año',
+    name: 'Programas Permanentes',
+    price: '$ consultar',
+    period: 'Permanente',
     features: [
-      'Todos los programas de autoayuda',
-      '1 sesión grupal moderada por mes',
-      'Material descargable completo',
-      '3 sesiones individuales incluidas',
+      'Psicoterapia individual, pareja y familiar,
+      'Orientacion Vocacional',
+      'Formacion en Psicodrama, Psicopatologia, Peritaje psicosocial',
+      'Intervencion en crisis',
       'Diagnóstico de personalidad',
-      'Seguimiento personalizado'
+      'Consultorias en Salud Mental para empresas'
     ],
-    cta: 'Suscripción Anual'
+    cta: 'Programas Permanentes'
   }
 ];
 
