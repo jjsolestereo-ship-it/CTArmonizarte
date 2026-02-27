@@ -139,7 +139,17 @@ const Team: React.FC = () => (
           name="Dra. Gladys Montero"
           role="Psicóloga Forense & Directora"
           description="Líder en reestructuración emocional con especialidad en peritaje. Su metodología fusiona la psicología clínica avanzada con un acompañamiento humano excepcional."
-          initialImage="/gladys.jpg"
+          <div className="relative w-48 h-48 mx-auto mb-4 rounded-full border-4 border-white shadow-lg overflow-hidden flex items-center justify-center bg-gray-100">
+ <TeamMemberCard 
+ <TeamMemberCard 
+  id="directora-gladys-pro"
+  name="Dra. Gladys Montero"
+  role="Psicóloga Forense & Directora"
+  description="Líder en reestructuración emocional con especial..."
+  initialImage="/Gladys.jpg" 
+  stats={[{ icon: Globe, label: "Experta Judicial" }, { icon: Heart, label: "Terapia" }]}
+  gradientClass="from-fuchsia-100 to-brand-300"
+/>
           stats={[{ icon: Globe, label: "Experta Judicial" }, { icon: HeartHandshake, label: "Terapeuta Senior" }]}
           gradientClass="from-fuchsia-100 to-brand-300"
         />
