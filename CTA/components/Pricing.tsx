@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Check, CreditCard, ShieldCheck, Sparkles, Star } from 'lucide-react';
 import { PricingPlan } from '../types';
@@ -21,7 +20,8 @@ const plans: PricingPlan[] = [
     price: '$20',
     period: '/mes',
     recommended: true,
-    features: ['1 sesion individual'l
+    features: [
+      '1 sesion individual',
       '1 programa de autoayuda por mes',
       '1 sesión grupal moderada por mes',
       'Material descargable técnico',
@@ -30,169 +30,90 @@ const plans: PricingPlan[] = [
     cta: 'Empezar Mensual'
   },
   {
-    name: 'Programas Permanentes',
-    price: '$ consultar',
-    period: 'Permanente',
+    name: 'Plan Premium',
+    price: '$50',
+    period: '/mes',
     features: [
-      'Psicoterapia individual, pareja y familiar,
-      'Orientacion Vocacional',
-      'Formacion en Psicodrama, Psicopatologia, Peritaje psicosocial',
-      'Intervencion en crisis',
-      'Diagnóstico de personalidad',
-      'Consultorias en Salud Mental para empresas'
+      '4 sesiones individuales',
+      'Acceso total a programas',
+      'Soporte prioritario 24/7',
+      'Talleres exclusivos',
+      'Plan personalizado'
     ],
-    cta: 'Programas Permanentes'
+    cta: 'Ir a Premium'
   }
 ];
 
 const Pricing: React.FC = () => {
-  const [currentPlan, setCurrentPlan] = useState<string | null>(null);
-  const [selectedPlanForCheckout, setSelectedPlanForCheckout] = useState<{name: string, price: string} | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<PricingPlan | null>(null);
 
-  const updateCurrentPlan = () => {
-    const savedPlan = localStorage.getItem('armonizarte_subscription');
-    setCurrentPlan(savedPlan);
-  };
-
-  useEffect(() => {
-    updateCurrentPlan();
-    
-    window.addEventListener('subscriptionUpdated', updateCurrentPlan);
-    window.addEventListener('storage', updateCurrentPlan);
-    
-    return () => {
-      window.removeEventListener('subscriptionUpdated', updateCurrentPlan);
-      window.removeEventListener('storage', updateCurrentPlan);
-    };
-  }, []);
-
-  const handleSubscribeClick = (plan: PricingPlan) => {
-    if (currentPlan === plan.name) return;
-
-    if (plan.price === 'Gratis') {
-      localStorage.setItem('armonizarte_subscription', plan.name);
-      window.dispatchEvent(new Event('subscriptionUpdated'));
-      return;
-    }
-    
-    setSelectedPlanForCheckout({ 
-      name: plan.name, 
-      price: plan.price + (plan.period || '') 
-    });
+  const handlePlanSelect = (plan: PricingPlan) => {
+    setSelectedPlan(plan);
+    setIsModalOpen(true);
   };
 
   return (
-    <section id="planes" className="py-32 bg-stone-50 relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full opacity-5 pointer-events-none">
-        <div className="absolute top-10 left-10 w-64 h-64 bg-brand-500 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent-500 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-stone-200 shadow-sm mb-6">
-            <ShieldCheck size={16} className="text-brand-600" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-500">Transacciones Seguras & Encriptadas</span>
-          </div>
-          <h2 className="text-5xl md:text-7xl font-bold text-brand-900 font-serif tracking-tighter mb-6">
-            Invierte en tu <span className="italic text-accent-500 font-normal">Tranquilidad</span>
-          </h2>
-          <p className="mt-4 text-xl text-stone-600 max-w-2xl mx-auto font-light leading-relaxed">
-            Elige el nivel de acompañamiento clínico que mejor se adapte a tu etapa actual de sanación.
-          </p>
+    <section id="pricing" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Planes de Acompañamiento</h2>
+          <p className="text-xl text-gray-600">Elige el nivel de apoyo que mejor se adapte a tu proceso</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto items-stretch">
-          {plans.map((plan) => {
-            const isCurrent = currentPlan === plan.name;
-            const isAnnual = plan.name.includes('Anual');
-
-            return (
-              <div 
-                key={plan.name}
-                className={`relative bg-white rounded-[3rem] transition-all duration-700 flex flex-col overflow-hidden border ${
-                  plan.recommended 
-                  ? 'border-accent-200 shadow-[0_30px_100px_-20px_rgba(255,139,114,0.15)] scale-105 z-10' 
-                  : isAnnual 
-                  ? 'border-amber-200 shadow-xl bg-gradient-to-b from-white to-amber-50/20'
-                  : 'border-stone-100 shadow-xl'
-                } ${isCurrent ? 'ring-4 ring-brand-500/20' : ''}`}
-              >
-                {plan.recommended && (
-                  <div className="absolute top-0 left-0 right-0 bg-accent-500 text-white py-2 text-center text-[10px] font-bold uppercase tracking-[0.3em]">
-                    Sugerencia Clínica
-                  </div>
-                )}
-
-                {isAnnual && !isCurrent && (
-                  <div className="absolute top-4 right-6 text-amber-300">
-                    <Star size={24} fill="currentColor" />
-                  </div>
-                )}
-                
-                <div className={`p-10 ${plan.recommended ? 'pt-14' : ''}`}>
-                  <h3 className="text-2xl font-bold text-brand-900 font-serif mb-2">{plan.name}</h3>
-                  <div className="mt-4 flex items-baseline gap-1">
-                    <span className="text-5xl font-bold text-brand-800 tracking-tighter">{plan.price}</span>
-                    {plan.period && <span className="text-stone-400 font-medium text-lg">{plan.period}</span>}
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {plans.map((plan) => (
+            <div
+              key={plan.name}
+              className={`relative p-8 rounded-2xl border ${
+                plan.recommended
+                  ? 'border-blue-500 shadow-xl scale-105 z-10 bg-white'
+                  : 'border-gray-200 shadow-sm hover:shadow-md transition-shadow'
+              }`}
+            >
+              {plan.recommended && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                  <Star className="w-4 h-4 fill-current" />
+                  Más Popular
                 </div>
+              )}
 
-                <div className="px-10 pb-10 flex-1">
-                  <div className="w-full h-px bg-stone-100 mb-8"></div>
-                  <ul className="space-y-5">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-4">
-                        <div className={`mt-1 shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${plan.recommended ? 'bg-accent-50 text-accent-500' : 'bg-brand-50 text-brand-500'}`}>
-                          <Check size={12} strokeWidth={4} />
-                        </div>
-                        <span className="text-stone-600 text-sm font-medium leading-snug">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="p-10 pt-0 mt-auto">
-                  <button 
-                    onClick={() => handleSubscribeClick(plan)}
-                    disabled={isCurrent}
-                    className={`w-full py-5 rounded-2xl font-bold transition-all duration-500 flex items-center justify-center gap-3 text-sm tracking-wide ${
-                      isCurrent 
-                      ? 'bg-brand-50 text-brand-800 cursor-default border border-brand-200' 
-                      : isAnnual
-                      ? 'bg-amber-500 text-white hover:bg-amber-600 shadow-xl shadow-amber-500/30'
-                      : plan.recommended 
-                      ? 'bg-accent-500 text-white hover:bg-accent-600 shadow-xl shadow-accent-500/30' 
-                      : 'bg-white text-brand-800 border-2 border-brand-100 hover:border-brand-500 hover:bg-brand-50'
-                    }`}
-                  >
-                    {isCurrent ? (
-                      <>
-                        <Sparkles size={18} className="text-amber-500" />
-                        Plan {isAnnual ? 'Premium' : ''} Activado
-                      </>
-                    ) : (
-                      <>
-                        <CreditCard size={18} />
-                        {plan.cta}
-                      </>
-                    )}
-                  </button>
-                  <p className="text-[10px] text-stone-400 text-center mt-6 uppercase tracking-widest font-bold">
-                    Pichincha / PayPal / Débito
-                  </p>
+              <div className="mb-8 text-center">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
+                  {plan.period && <span className="text-gray-500">{plan.period}</span>}
                 </div>
               </div>
-            );
-          })}
+
+              <ul className="space-y-4 mb-8">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 text-gray-600">
+                    <Check className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                onClick={() => handlePlanSelect(plan)}
+                className={`w-full py-3 px-6 rounded-xl font-bold transition-colors ${
+                  plan.recommended
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                }`}
+              >
+                {plan.cta}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
 
-      <CheckoutModal 
-        isOpen={!!selectedPlanForCheckout}
-        onClose={() => setSelectedPlanForCheckout(null)}
-        planName={selectedPlanForCheckout?.name || ''}
-        planPrice={selectedPlanForCheckout?.price || ''}
+      <CheckoutModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        plan={selectedPlan}
       />
     </section>
   );

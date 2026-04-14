@@ -1,45 +1,60 @@
-import React from 'react';
-import { Mail } from 'lucide-react';
+import React, { useState } from 'react';
+// La ruta es exacta a tu estructura: carpeta Api dentro de components
+import { sendEmail } from './Api/send-email';
 
 const Newsletter: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    // Llamada a la función con los datos del formulario
+    const result = await sendEmail({
+      name: "Usuario de Newsletter",
+      email: email,
+      message: "Este usuario se ha suscrito al boletín informativo desde la web CTA."
+    });
+
+    if (result.success) {
+      setStatus('success');
+      setEmail(''); // Limpia el input si sale bien
+    } else {
+      setStatus('error');
+    }
+  };
+
   return (
-    <section className="py-16 bg-brand-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-brand-800 rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl border border-brand-700">
-          <div className="md:w-1/2">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Recibe guías de bienestar gratuitas
-            </h2>
-            <p className="text-brand-100 text-lg">
-              Únete a nuestra comunidad y recibe semanalmente herramientas de autoayuda, meditaciones y consejos de expertos.
-            </p>
-          </div>
-          
-          <div className="md:w-1/2 w-full">
-            <form className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-grow">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-brand-300" />
-                </div>
-                <input
-                  type="email"
-                  placeholder="Tu correo electrónico"
-                  className="w-full pl-10 pr-4 py-3.5 rounded-lg bg-brand-900/50 border border-brand-600 text-white placeholder-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400"
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-white text-brand-900 font-bold px-6 py-3.5 rounded-lg hover:bg-brand-50 transition-colors whitespace-nowrap shadow-lg"
-              >
-                Suscribirme
-              </button>
-            </form>
-            <p className="text-xs text-brand-400 mt-3 text-center sm:text-left">
-              Sin spam, solo contenido de valor. Puedes cancelar cuando quieras.
-            </p>
-          </div>
-        </div>
+    <section className="py-16 bg-blue-50">
+      <div className="max-w-4xl mx-auto px-4 text-center">
+        <h2 className="text-3xl font-bold mb-4">Suscríbete a nuestro boletín</h2>
+        <p className="mb-8 text-gray-600">Recibe información sobre salud mental y bienestar directamente en tu correo.</p>
+        
+        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 justify-center">
+          <input
+            type="email"
+            placeholder="Tu correo electrónico"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-80 text-black"
+          />
+          <button
+            type="submit"
+            disabled={status === 'loading'}
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400"
+          >
+            {status === 'loading' ? 'Enviando...' : 'Suscribirme'}
+          </button>
+        </form>
+
+        {status === 'success' && (
+          <p className="mt-4 text-green-600 font-medium animate-pulse">¡Gracias! Te has suscrito correctamente.</p>
+        )}
+        {status === 'error' && (
+          <p className="mt-4 text-red-600 font-medium">Hubo un error. Por favor, intenta de nuevo.</p>
+        )}
       </div>
     </section>
   );
