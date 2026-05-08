@@ -1,31 +1,26 @@
-import { Resend } from 'resend';
+import emailjs from '@emailjs/browser';
 
-// Acceso a la API KEY configurada en tu archivo .env
-const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY);
-
-interface EmailData {
-  name: string;
-  email: string;
-  message: string;
-}
-
-export const sendEmail = async (formData: EmailData) => {
+export const sendEmail = async (data: { name: string; email: string; message: string }) => {
   try {
-    const data = await resend.emails.send({
-      from: 'onboarding@resend.dev', 
-      to: 'tu-correo@ejemplo.com', // <-- Cambia esto por tu correo real
-      subject: `Nuevo mensaje de ${formData.name}`,
-      html: `
-        <p>Has recibido un nuevo mensaje:</p>
-        <p><strong>Nombre:</strong> ${formData.name}</p>
-        <p><strong>Email:</strong> ${formData.email}</p>
-        <p><strong>Mensaje:</strong> ${formData.message}</p>
-      `,
-    });
+    // Usamos las etiquetas exactas que están en tu plantilla de EmailJS
+    const templateParams = {
+      nombre: data.name,
+      email: data.email, 
+      mensaje: data.message,
+    };
 
-    return { success: true, data };
-  } catch (error) {
-    console.error("Error al enviar el correo:", error);
-    return { success: false, error };
+    const response = await emailjs.send(
+      'service_gvl6fhs', 
+      'wl385cf', 
+      templateParams,
+      'r4aap4lstVza-plCG'
+    );
+
+    console.log("Respuesta de EmailJS:", response.status, response.text);
+    return { success: true };
+  } catch (error: any) {
+    // Esto nos dirá en la consola exactamente qué falló
+    console.error("Error al conectar con EmailJS:", error);
+    return { success: false };
   }
 };

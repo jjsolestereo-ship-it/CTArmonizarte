@@ -1,60 +1,88 @@
-import React, { useState } from 'react';
-// La ruta es exacta a tu estructura: carpeta Api dentro de components
-import { sendEmail } from './Api/send-email';
+"use client";
 
-const Newsletter: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+import React, { useState } from "react";
+// Verifica que esta ruta sea correcta según tu estructura de carpetas
+import { sendEmail } from "./Api/send-email";
+
+const Newsletter = () => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('loading');
+    
+    // Si los campos están vacíos, no hacemos nada
+    if (!email || !name) return;
 
-    // Llamada a la función con los datos del formulario
-    const result = await sendEmail({
-      name: "Usuario de Newsletter",
-      email: email,
-      message: "Este usuario se ha suscrito al boletín informativo desde la web CTA."
-    });
+    setStatus("loading");
+    console.log("Iniciando envío para:", name, email);
 
-    if (result.success) {
-      setStatus('success');
-      setEmail(''); // Limpia el input si sale bien
-    } else {
-      setStatus('error');
+    try {
+      const result = await sendEmail({
+        name: name,
+        email: email,
+        message: "Nueva suscripción desde el sitio web CTArmonizarte",
+      });
+
+      if (result.success) {
+        setStatus("success");
+        setEmail("");
+        setName("");
+        console.log("¡Envío exitoso detectado por el componente!");
+      } else {
+        setStatus("error");
+        console.log("El envío falló en la función sendEmail");
+      }
+    } catch (err) {
+      console.error("Error crítico en el formulario:", err);
+      setStatus("error");
     }
   };
 
   return (
-    <section className="py-16 bg-blue-50">
-      <div className="max-w-4xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold mb-4">Suscríbete a nuestro boletín</h2>
-        <p className="mb-8 text-gray-600">Recibe información sobre salud mental y bienestar directamente en tu correo.</p>
-        
-        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 justify-center">
+    <section className="py-20 bg-primary/5">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl font-bold mb-4 text-black">Suscríbete a nuestro Newsletter</h2>
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto flex flex-col gap-4">
+          <input
+            type="text"
+            placeholder="Tu nombre"
+            className="px-6 py-3 rounded-full border border-gray-300 text-black w-full"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
           <input
             type="email"
-            placeholder="Tu correo electrónico"
+            placeholder="tu@email.com"
+            className="px-6 py-3 rounded-full border border-gray-300 text-black w-full"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-80 text-black"
           />
           <button
             type="submit"
-            disabled={status === 'loading'}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400"
+            disabled={status === "loading"}
+            className="px-8 py-3 bg-primary text-white rounded-full font-semibold disabled:opacity-50 transition-all"
           >
-            {status === 'loading' ? 'Enviando...' : 'Suscribirme'}
+            {status === "loading" ? "Procesando..." : "Suscribirme"}
           </button>
+          
+          {status === "success" && (
+            <div className="bg-green-100 p-4 rounded-lg mt-4 border border-green-200">
+               <p className="text-green-700 font-bold">¡Mensaje Enviado!</p>
+               <p className="text-green-600 text-sm">Revisa tu bandeja de entrada de CTArmonizarte.</p>
+            </div>
+          )}
+          
+          {status === "error" && (
+            <div className="bg-red-100 p-4 rounded-lg mt-4 border border-red-200">
+              <p className="text-red-600 font-bold">Error de conexión.</p>
+              <p className="text-red-500 text-sm">Intenta recargar la página (F5).</p>
+            </div>
+          )}
         </form>
-
-        {status === 'success' && (
-          <p className="mt-4 text-green-600 font-medium animate-pulse">¡Gracias! Te has suscrito correctamente.</p>
-        )}
-        {status === 'error' && (
-          <p className="mt-4 text-red-600 font-medium">Hubo un error. Por favor, intenta de nuevo.</p>
-        )}
       </div>
     </section>
   );
