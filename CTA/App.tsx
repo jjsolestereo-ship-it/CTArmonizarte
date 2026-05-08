@@ -1,9 +1,5 @@
-import React from "react";
-<<<<<<< HEAD
-// Importación de componentes
-=======
+import React from 'react';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -17,28 +13,22 @@ import WhatsAppButton from "./components/WhatsAppButton";
 
 function App() {
   return (
-<<<<<<< HEAD
-    <div className="min-h-screen font-sans text-stone-800 bg-white">
-=======
-    <div className="min-h-screen bg-white">
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
-      <Navbar />
-      <Hero />
-      <Services />
-      <Programs />
-      <Team />
-      <Pricing />
-      <Blog />
-      <Newsletter />
-      <Footer />
-<<<<<<< HEAD
-      <WhatsAppButton />
-      <CrisisFloatingAction />
-=======
-      <Chatbot />
-      <WhatsAppButton />
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
-    </div>
+    <PayPalScriptProvider options={{ "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID }}>
+      <div className="min-h-screen font-sans text-stone-800 bg-white">
+        <Navbar />
+        <main>
+          <Hero />
+          <Services />
+          <Programs />
+          <Team />
+          <Pricing />
+          <Blog />
+          <Newsletter />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </div>
+    </PayPalScriptProvider>
   );
 }
 

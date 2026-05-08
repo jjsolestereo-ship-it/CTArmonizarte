@@ -1,139 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import { Check, CreditCard, ShieldCheck, Sparkles, Star } from 'lucide-react';
-import { PricingPlan } from '../types';
-import CheckoutModal from './CheckoutModal';
+import React from 'react';
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { Landmark, Check } from 'lucide-react';
 
-const plans: PricingPlan[] = [
-  {
-    name: 'Comunidad Abierta',
-    price: 'Gratis',
-    features: [
-      'Acceso al blog de bienestar',
-      'Foro de comunidad abierta',
-      'Boletín semanal de consejos',
-      'Entrevista de orientacion'
-    ],
-    cta: 'Unirme Gratis'
-  },
-  {
-    name: 'Membresía Mensual',
-    price: '$20',
-    period: '/mes',
-    recommended: true,
-<<<<<<< HEAD
-    features: [
-      '1 sesion individual',
-=======
-    features: ['1 sesion individual',
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
-      '1 programa de autoayuda por mes',
-      '1 sesión grupal moderada por mes',
-      'Material descargable técnico',
-      'Seguimiento y evaluación'
-    ],
-    cta: 'Empezar Mensual'
-  },
-  {
-<<<<<<< HEAD
-    name: 'Plan Premium',
-    price: '$50',
-    period: '/mes',
-    features: [
-      '4 sesiones individuales',
-      'Acceso total a programas',
-      'Soporte prioritario 24/7',
-      'Talleres exclusivos',
-      'Plan personalizado'
-    ],
-    cta: 'Ir a Premium'
-=======
-    name: 'Suscripcion Premium',
-    price: '$ 59',
-    period: 'Permanente',
-    features: [
-      'Acceso a todos los programas de autoayuda',
-      'Diagnostico de personalidad',
-      '3 sesiones individuales',
-      '3 sesiones grupales',
-      'Evaluacion y seguimiento',
-      'Mensajeria profesional'
-    ],
-    cta: 'Suscribirse Premium'
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
-  }
-];
-
-const Pricing: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<PricingPlan | null>(null);
-
-  const handlePlanSelect = (plan: PricingPlan) => {
-    setSelectedPlan(plan);
-    setIsModalOpen(true);
-  };
+const Pricing = () => {
+  const plans = [
+    {
+      name: "Membresía Mensual",
+      price: "20.00",
+      features: ["1 sesión individual", "Programa de autoayuda", "Sesión grupal moderada", "Material descargable"]
+    },
+    {
+      name: "Suscripción Permanente",
+      price: "59.00",
+      features: ["Acceso vitalicio", "Soporte prioritario", "Certificación", "Todos los beneficios"]
+    }
+  ];
 
   return (
-    <section id="pricing" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Planes de Acompañamiento</h2>
-          <p className="text-xl text-gray-600">Elige el nivel de apoyo que mejor se adapte a tu proceso</p>
-        </div>
+    <section className="py-20 bg-stone-50" id="pricing">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-12 text-stone-800">Opciones de Pago</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* BOTONES DE PAYPAL */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
           {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative p-8 rounded-2xl border ${
-                plan.recommended
-                  ? 'border-blue-500 shadow-xl scale-105 z-10 bg-white'
-                  : 'border-gray-200 shadow-sm hover:shadow-md transition-shadow'
-              }`}
-            >
-              {plan.recommended && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                  <Star className="w-4 h-4 fill-current" />
-                  Más Popular
-                </div>
-              )}
-
-              <div className="mb-8 text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-                  {plan.period && <span className="text-gray-500">{plan.period}</span>}
-                </div>
-              </div>
-
-              <ul className="space-y-4 mb-8">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-gray-600">
-                    <Check className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                    <span className="text-sm">{feature}</span>
+            <div key={plan.name} className="bg-white p-8 border rounded-2xl shadow-sm flex flex-col">
+              <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+              <p className="text-5xl font-black text-orange-600 mb-6">${plan.price}</p>
+              <ul className="text-left mb-8 flex-grow">
+                {plan.features.map(f => (
+                  <li key={f} className="mb-2 text-stone-600 flex items-center italic">
+                    <Check size={16} className="text-orange-500 mr-2" /> {f}
                   </li>
                 ))}
               </ul>
-
-              <button
-                onClick={() => handlePlanSelect(plan)}
-                className={`w-full py-3 px-6 rounded-xl font-bold transition-colors ${
-                  plan.recommended
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                }`}
-              >
-                {plan.cta}
-              </button>
+              <PayPalButtons 
+                style={{ layout: "vertical", color: "blue", shape: "rect" }}
+                createOrder={(data, actions) => {
+                  return actions.order.create({
+                    purchase_units: [{
+                      amount: { value: plan.price },
+                      description: `Armonizarte - ${plan.name}`
+                    }]
+                  });
+                }}
+              />
             </div>
           ))}
         </div>
-      </div>
 
-      <CheckoutModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        plan={selectedPlan}
-      />
+        {/* DATOS BANCARIOS SIMPLIFICADOS POR SEGURIDAD */}
+        <div className="max-w-xl mx-auto bg-white border-2 border-orange-100 rounded-3xl p-8 shadow-sm">
+          <div className="flex items-center justify-center mb-6">
+            <Landmark className="text-orange-600 mr-3" size={32} />
+            <h3 className="text-2xl font-bold text-stone-800">Transferencia Directa (Ecuador)</h3>
+          </div>
+          
+          <div className="bg-stone-50 p-8 rounded-xl border border-stone-100 text-center">
+            <p className="text-stone-500 uppercase text-xs font-bold tracking-wider mb-1">Banco</p>
+            <p className="text-xl font-bold text-stone-800 mb-6">Banco Pichincha</p>
+            
+            <p className="text-stone-500 uppercase text-xs font-bold tracking-wider mb-1">Número de Cuenta (Ahorros)</p>
+            <p className="text-2xl font-mono font-bold text-orange-600 tracking-tighter">2210518360</p>
+          </div>
+          
+          <p className="mt-6 text-center text-stone-500 text-sm italic">
+            * Por favor, envía tu comprobante para activar tu acceso una vez realizada la transferencia.
+          </p>
+        </div>
+      </div>
     </section>
   );
 };
