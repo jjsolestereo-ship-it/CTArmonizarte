@@ -20,8 +20,12 @@ const plans: PricingPlan[] = [
     price: '$20',
     period: '/mes',
     recommended: true,
+<<<<<<< HEAD
     features: [
       '1 sesion individual',
+=======
+    features: ['1 sesion individual',
+>>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
       '1 programa de autoayuda por mes',
       '1 sesión grupal moderada por mes',
       'Material descargable técnico',
@@ -30,6 +34,7 @@ const plans: PricingPlan[] = [
     cta: 'Empezar Mensual'
   },
   {
+<<<<<<< HEAD
     name: 'Plan Premium',
     price: '$50',
     period: '/mes',
@@ -41,6 +46,20 @@ const plans: PricingPlan[] = [
       'Plan personalizado'
     ],
     cta: 'Ir a Premium'
+=======
+    name: 'Suscripcion Premium',
+    price: '$ 59',
+    period: 'Permanente',
+    features: [
+      'Acceso a todos los programas de autoayuda',
+      'Diagnostico de personalidad',
+      '3 sesiones individuales',
+      '3 sesiones grupales',
+      'Evaluacion y seguimiento',
+      'Mensajeria profesional'
+    ],
+    cta: 'Suscribirse Premium'
+>>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
   }
 ];
 

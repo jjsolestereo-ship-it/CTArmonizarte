@@ -1,9 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
-// Importación de componentes
-=======
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
@@ -13,15 +8,12 @@ import Pricing from "./components/Pricing";
 import Blog from "./components/Blog";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
+import Chatbot from "./components/Chatbot";
 import WhatsAppButton from "./components/WhatsAppButton";
 
 function App() {
   return (
-<<<<<<< HEAD
-    <div className="min-h-screen font-sans text-stone-800 bg-white">
-=======
     <div className="min-h-screen bg-white">
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
       <Navbar />
       <Hero />
       <Services />
@@ -31,13 +23,8 @@ function App() {
       <Blog />
       <Newsletter />
       <Footer />
-<<<<<<< HEAD
-      <WhatsAppButton />
-      <CrisisFloatingAction />
-=======
       <Chatbot />
       <WhatsAppButton />
->>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
     </div>
   );
 }

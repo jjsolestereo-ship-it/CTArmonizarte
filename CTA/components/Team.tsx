@@ -155,11 +155,43 @@ const Team: React.FC = () => {
           </p>
         </div>
 
+<<<<<<< HEAD
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {team.map((member) => (
             <TeamMemberCard key={member.id} member={member} />
           ))}
         </div>
+=======
+      <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 max-w-6xl mx-auto">
+        <TeamMemberCard 
+          id="directora-gladys-pro"
+          name="Dra. Gladys Montero"
+          role="Psicóloga Forense & Directora"
+          description="Líder en reestructuración emocional con especialidad en peritaje. Su metodología fusiona la psicología clínica avanzada con un acompañamiento humano excepcional."
+          <div className="relative w-48 h-48 mx-auto mb-4 rounded-full border-4 border-white shadow-lg overflow-hidden flex items-center justify-center bg-gray-100">
+ <TeamMemberCard 
+ <TeamMemberCard 
+  id="directora-gladys-pro"
+  name="Dra. Gladys Montero"
+  role="Psicóloga Forense & Directora"
+  description="Líder en reestructuración emocional con especial..."
+  initialImage="/Gladys.jpg" 
+  stats={[{ icon: Globe, label: "Experta Judicial" }, { icon: Heart, label: "Terapia" }]}
+  gradientClass="from-fuchsia-100 to-brand-300"
+/>
+          stats={[{ icon: Globe, label: "Experta Judicial" }, { icon: HeartHandshake, label: "Terapeuta Senior" }]}
+          gradientClass="from-fuchsia-100 to-brand-300"
+        />
+        <TeamMemberCard 
+          id="director-menthor-pro"
+          name="Dr. Menthor Sánchez"
+          role="Psicólogo Clínico & Autor"
+          description="Especialista en psicodrama y terapia humanista. Con más de dos décadas de trayectoria, ha revolucionado el tratamiento de adicciones y duelos complejos."
+          initialImage="/menthor.jpg"
+          stats={[{ icon: BookOpen, label: "Autor Científico" }, { icon: Users, label: "Líder de Grupo" }]}
+          gradientClass="from-brand-200 to-accent-200"
+        />
+>>>>>>> fa94dc010f81dcf066475d9c4863a8eeeb0e5417
       </div>
     </section>
   );
