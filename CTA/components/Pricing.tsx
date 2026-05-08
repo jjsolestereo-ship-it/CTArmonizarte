@@ -1,6 +1,6 @@
 import React from 'react';
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { Landmark, Check } from 'lucide-react';
+import { Landmark, Check, MessageCircle } from 'lucide-react';
 
 const Pricing = () => {
   const plans = [
@@ -49,14 +49,14 @@ const Pricing = () => {
           ))}
         </div>
 
-        {/* DATOS BANCARIOS SIMPLIFICADOS POR SEGURIDAD */}
-        <div className="max-w-xl mx-auto bg-white border-2 border-orange-100 rounded-3xl p-8 shadow-sm">
+        {/* DATOS BANCARIOS SIMPLIFICADOS */}
+        <div className="max-w-xl mx-auto bg-white border-2 border-orange-100 rounded-3xl p-8 shadow-sm text-center">
           <div className="flex items-center justify-center mb-6">
             <Landmark className="text-orange-600 mr-3" size={32} />
             <h3 className="text-2xl font-bold text-stone-800">Transferencia Directa (Ecuador)</h3>
           </div>
           
-          <div className="bg-stone-50 p-8 rounded-xl border border-stone-100 text-center">
+          <div className="bg-stone-50 p-8 rounded-xl border border-stone-100 mb-6">
             <p className="text-stone-500 uppercase text-xs font-bold tracking-wider mb-1">Banco</p>
             <p className="text-xl font-bold text-stone-800 mb-6">Banco Pichincha</p>
             
@@ -64,8 +64,18 @@ const Pricing = () => {
             <p className="text-2xl font-mono font-bold text-orange-600 tracking-tighter">2210518360</p>
           </div>
           
-          <p className="mt-6 text-center text-stone-500 text-sm italic">
-            * Por favor, envía tu comprobante para activar tu acceso una vez realizada la transferencia.
+          <a 
+            href="https://wa.link/pyasv5" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full font-bold hover:bg-[#20ba5a] transition-colors"
+          >
+            <MessageCircle size={20} />
+            Enviar Comprobante
+          </a>
+          
+          <p className="mt-4 text-stone-500 text-sm italic">
+            * El acceso se activará inmediatamente tras validar tu transferencia.
           </p>
         </div>
       </div>

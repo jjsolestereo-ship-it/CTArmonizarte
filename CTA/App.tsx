@@ -10,6 +10,7 @@ import Blog from "./components/Blog";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import Chatbot from "./components/Chatbot"; // Agregamos el Chatbot
 
 function App() {
   return (
@@ -26,7 +27,8 @@ function App() {
           <Newsletter />
         </main>
         <Footer />
-        <WhatsAppButton />
+        <Chatbot /> {/* El asistente inteligente */}
+        <WhatsAppButton /> {/* El botón de WhatsApp directo */}
       </div>
     </PayPalScriptProvider>
   );
