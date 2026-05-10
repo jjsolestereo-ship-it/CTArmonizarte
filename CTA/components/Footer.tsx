@@ -1,13 +1,11 @@
 import React from 'react';
-import { MapPin, Phone, Mail, Instagram, Facebook, Twitter, BarChart3 } from 'lucide-react';
+import { MapPin, Phone, Mail, BarChart3 } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
     <footer id="contacto" className="bg-stone-900 text-stone-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          
-          {/* Marca */}
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 flex items-center justify-center border border-stone-600 rounded-full bg-stone-800">
@@ -19,11 +17,10 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <p className="text-sm text-stone-400">
-              Dedicados a restaurar el equilibrio emocional y social con enfoque profesional.
+              Restaurando el equilibrio emocional y social con un enfoque profesional y humano.
             </p>
           </div>
 
-          {/* Enlaces */}
           <div>
             <h4 className="text-white font-serif font-semibold mb-4">Explorar</h4>
             <ul className="space-y-2 text-sm">
@@ -37,7 +34,6 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Contacto con Dirección de QUITO */}
           <div>
             <h4 className="text-white font-serif font-semibold mb-4">Contacto</h4>
             <ul className="space-y-3 text-sm">
@@ -56,12 +52,10 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Mapa */}
-          <div className="h-44 rounded-xl overflow-hidden bg-stone-800 border border-stone-700 text-xs flex items-center justify-center text-stone-500">
-            Mapa de Quito La Merced
+          <div className="h-44 rounded-xl border border-stone-700 bg-stone-800 flex items-center justify-center p-4 text-center">
+            <span className="text-xs text-stone-500 italic">Ubicación: Sector La Merced, Valle de los Chillos</span>
           </div>
         </div>
-        
         <div className="border-t border-stone-800 pt-8 text-center text-xs text-stone-500">
           <p>© {new Date().getFullYear()} Armonizarte. Todos los derechos reservados.</p>
         </div>
