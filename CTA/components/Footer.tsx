@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Phone, Mail, Instagram, Facebook, Twitter, BarChart3, ExternalLink } from 'lucide-react';
 
@@ -58,14 +57,14 @@ const Footer: React.FC = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-brand-500 mt-0.5 shrink-0" />
-                <span>Platón y Rutherford<br/><span className="text-stone-500 text-xs">Ambato, Tungurahua, Ecuador</span></span>
+                {/* DIRECCIÓN ACTUALIZADA */}
+                <span>Quito. La Merced L 16<br/><span className="text-stone-500 text-xs">Quito, Pichincha, Ecuador</span></span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-brand-500 shrink-0" />
                 <span>(+593) 98 081 9319</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={18} className="text-brand-500 shrink-0" />
                 <span>ctarmonizarte@gmail.com</span>
               </li>
             </ul>
@@ -74,7 +73,7 @@ const Footer: React.FC = () => {
           {/* Map (Interactive) */}
           <div className="h-48 rounded-xl overflow-hidden bg-stone-800 relative shadow-lg border border-stone-700">
             <iframe 
-              src="https://maps.google.com/maps?q=Plat%C3%B3n+y+Rutherford,+Ambato,+Tungurahua,+Ecuador&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15959.035417933935!2d-78.39763260840422!3d-0.3126435967005477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d5964d306b3a01%3A0x600b39679633e9b1!2sLa%20Merced%2C%20Quito!5e0!3m2!1ses-419!2sec!4v1709500000000!5m2!1ses-419!2sec"
               className="w-full h-full border-0 filter grayscale hover:grayscale-0 transition-all duration-500 opacity-90 hover:opacity-100"
               allowFullScreen
               loading="lazy"
@@ -85,7 +84,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500">
-          <p>© 2024 Armonizarte. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} Armonizarte. Todos los derechos reservados.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-stone-300">Aviso Legal</a>
             <a href="#" className="hover:text-stone-300">Privacidad</a>
