@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           
-          {/* Columna 1: Marca */}
+          {/* Marca */}
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 flex items-center justify-center border border-stone-600 rounded-full bg-stone-800">
@@ -19,11 +19,11 @@ const Footer: React.FC = () => {
               </div>
             </div>
             <p className="text-sm text-stone-400">
-              Restaurando el equilibrio emocional y social a través de un enfoque humano y profesional.
+              Dedicados a restaurar el equilibrio emocional y social con enfoque profesional.
             </p>
           </div>
 
-          {/* Columna 2: Enlaces */}
+          {/* Enlaces */}
           <div>
             <h4 className="text-white font-serif font-semibold mb-4">Explorar</h4>
             <ul className="space-y-2 text-sm">
@@ -37,7 +37,7 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Columna 3: Contacto ACTUALIZADO */}
+          {/* Contacto con Dirección de QUITO */}
           <div>
             <h4 className="text-white font-serif font-semibold mb-4">Contacto</h4>
             <ul className="space-y-3 text-sm">
@@ -56,14 +56,9 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Columna 4: Mapa */}
-          <div className="h-44 rounded-xl overflow-hidden bg-stone-800 border border-stone-700">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7432!2d-78.48!3d-0.18!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMTAnNDguMCJTIDc4wrAyOC'NDguMCJX!5e0!3m2!1ses!2sec!4v1620000000000!5m2!1ses!2sec"
-              className="w-full h-full border-0 grayscale"
-              allowFullScreen
-              loading="lazy"
-            ></iframe>
+          {/* Mapa */}
+          <div className="h-44 rounded-xl overflow-hidden bg-stone-800 border border-stone-700 text-xs flex items-center justify-center text-stone-500">
+            Mapa de Quito La Merced
           </div>
         </div>
         
