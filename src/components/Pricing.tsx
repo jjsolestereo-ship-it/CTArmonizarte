@@ -18,7 +18,7 @@ const plans: PricingPlan[] = [
   },
   {
     name: 'Membresía Mensual',
-    price: '$10',
+    price: '$25',
     period: '/mes',
     recommended: true,
     features: [
@@ -30,14 +30,14 @@ const plans: PricingPlan[] = [
     cta: 'Empezar Mensual'
   },
   {
-    name: 'Plan Anual Premium',
-    price: '$79.90',
-    period: '/año',
+    name: 'Plan Mensual Premium',
+    price: '$59.90',
+    period: '/Mes',
     features: [
       'Todos los programas de autoayuda',
       '1 sesión grupal moderada por mes',
       'Material descargable completo',
-      '3 sesiones individuales incluidas',
+      '2 sesiones individuales incluidas',
       'Diagnóstico de personalidad',
       'Seguimiento personalizado'
     ],
