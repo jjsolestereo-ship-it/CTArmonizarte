@@ -31,7 +31,7 @@ const plans: PricingPlan[] = [
   },
   {
     name: 'Plan Mensual Premium',
-    price: '$59.90',
+    price: '$59.00',
     period: '/Mes',
     features: [
       'Todos los programas de autoayuda',
