@@ -1,119 +1,140 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import React, { useState, useRef, useEffect } from 'react';
+import { MessageCircle, X, Send, Bot } from 'lucide-react';
+
+interface Message {
+  id: string;
+  text: string;
+  sender: 'user' | 'bot';
+  timestamp: Date;
+}
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{ role: 'user' | 'bot', content: string }[]>([
-    { role: 'bot', content: '¡Hola! Soy el asistente de Armonizarte. ¿En qué puedo ayudarte hoy?' }
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: '1',
+      text: '¡Hola! Bienvenido a Armonizarte. Soy tu asistente virtual. ¿En qué puedo ayudarte hoy en tu camino de bienestar?',
+      sender: 'bot',
+      timestamp: new Date(),
+    },
   ]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Inicialización de la IA con la API Key de las variables de entorno
-  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const handleSend = () => {
+    if (!inputValue.trim()) return;
 
-    const userMessage = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-    setIsLoading(true);
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: inputValue,
+      sender: 'user',
+      timestamp: new Date(),
+    };
 
-    try {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-      
-      const prompt = `
-        Eres el asistente virtual de la Comunidad Terapéutica Armonizarte, dirigida por el Dr. Menthor Sánchez en Ecuador.
-        Tu objetivo es ser empático, profesional y resolutivo.
-        
-        INFORMACIÓN CLAVE:
-        - Servicios: Psicoterapia, programas de autoayuda, comunidad terapéutica.
-        - Precios: Membresía Mensual $20 / Suscripción Permanente $59.
-        - Pagos: PayPal en la web o Transferencia al Banco Pichincha (Ahorros #2210518360).
-        - Contacto Directo: Si el usuario quiere hablar con un humano, indícale que use el botón verde de WhatsApp.
-        
-        Responde de forma breve y amable a: ${userMessage}
-      `;
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue('');
 
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const text = response.text();
-
-      setMessages(prev => [...prev, { role: 'bot', content: text }]);
-    } catch (error) {
-      console.error("Error con Gemini:", error);
-      setMessages(prev => [...prev, { role: 'bot', content: 'Lo siento, tuve un problema técnico. ¿Podrías intentar de nuevo o escribirme por WhatsApp?' }]);
-    } finally {
-      setIsLoading(false);
-    }
+    // Simulación de respuesta automática del Bot
+    setTimeout(() => {
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: 'Gracias por tu mensaje. Un especialista de nuestro equipo se comunicará contigo lo antes posible para brindarte una atención personalizada.',
+        sender: 'bot',
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, botMessage]);
+    }, 1000);
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      {/* Botón flotante */}
+    <>
+      {/* Botón flotante para abrir el Chat */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-orange-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center"
+          className="fixed bottom-6 right-24 bg-orange-400 text-white p-3.5 rounded-full shadow-lg hover:bg-orange-500 transition-all duration-300 z-50 hover:scale-110 flex items-center justify-center"
+          aria-label="Abrir chat de soporte"
         >
-          <MessageCircle size={28} />
+          <MessageCircle className="w-6 h-6" />
         </button>
       )}
 
-      {/* Ventana de Chat */}
+      {/* Ventana del Chatbot */}
       {isOpen && (
-        <div className="bg-white w-80 md:w-96 h-[500px] rounded-2xl shadow-2xl flex flex-col border border-stone-200 overflow-hidden">
+        <div className="fixed bottom-6 right-6 w-80 md:w-96 h-[450px] bg-white rounded-2xl shadow-2xl border border-stone-200 flex flex-col z-50 animate-in fade-in slide-in-from-bottom-4 duration-300">
+          
           {/* Cabecera */}
-          <div className="bg-orange-600 p-4 text-white flex justify-between items-center">
-            <div>
-              <h3 className="font-bold">Asistente Armonizarte</h3>
-              <p className="text-xs opacity-80">En línea ahora</p>
+          <div className="p-4 bg-stone-900 text-white rounded-t-2xl flex items-center justify-between shadow-sm">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center text-white">
+                <Bot className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-sm">Asistente Armonizarte</h4>
+                <p className="text-[10px] text-stone-400 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block"></span> En línea
+                </p>
+              </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="hover:bg-orange-700 rounded-full p-1">
-              <X size={20} />
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="text-stone-400 hover:text-white transition-colors"
+            >
+              <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Mensajes */}
-          <div className="flex-grow overflow-y-auto p-4 space-y-4 bg-stone-50">
-            {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${
-                  m.role === 'user' 
-                    ? 'bg-orange-600 text-white rounded-tr-none' 
-                    : 'bg-white text-stone-800 border border-stone-200 rounded-tl-none shadow-sm'
-                }`}>
-                  {m.content}
+          {/* Cuerpo de mensajes */}
+          <div className="flex-grow p-4 overflow-y-auto bg-stone-50 space-y-3.5">
+            {messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                <div
+                  className={`max-w-[75%] p-3 rounded-2xl text-xs leading-relaxed shadow-sm ${
+                    msg.sender === 'user'
+                      ? 'bg-orange-400 text-white rounded-tr-none'
+                      : 'bg-white text-stone-800 border border-stone-100 rounded-tl-none'
+                  }`}
+                >
+                  {msg.text}
                 </div>
               </div>
             ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-white border border-stone-200 p-3 rounded-2xl rounded-tl-none shadow-sm">
-                  <Loader2 size={16} className="animate-spin text-orange-600" />
-                </div>
-              </div>
-            )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div className="p-4 bg-white border-t border-stone-100 flex gap-2">
+          {/* Input de texto inferior */}
+          <div className="p-3 bg-white rounded-b-2xl border-t border-stone-100 flex items-center gap-2">
             <input
               type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               placeholder="Escribe tu duda aquí..."
-              className="flex-grow p-2 border border-stone-200 rounded-lg focus:outline-none focus:border-orange-50
+              className="flex-grow p-2 border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-orange-400 transition-colors"
+            />
+            <button
+              onClick={handleSend}
+              className="bg-stone-900 text-white p-2 rounded-xl hover:bg-orange-400 transition-colors flex items-center justify-center shrink-0"
+            >
+              <Send className="w-4 h-4" />
+            </button>
+          </div>
+
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Chatbot;
